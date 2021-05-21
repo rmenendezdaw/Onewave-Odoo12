@@ -31,3 +31,67 @@ Las principales características de la aplicación son:
 - JQuery
 - Toastr
 - Mailgun
+
+## Estructura de directorios
+
+```bash
+├── addons
+│   ├── event
+│   │   ├── data
+│   │   ├── i18n
+│   │   ├── models
+│   │   ├── report
+│   │   ├── security
+│   │   ├── static
+│   │   │   ├── description
+│   │   │   └── src
+│   │   │       └── scss
+│   │   ├── tests
+│   │   ├── views
+│   │   └── wizard
+│   ├── website
+│   │   ├── controllers
+│   │   ├── data
+│   │   ├── doc
+│   │   ├── i18n
+│   │   ├── models
+│   │   ├── security
+│   │   ├── static
+│   │   │   ├── description
+│   │   │   ├── lib
+│   │   │   ├── src
+│   │   │   │   ├── img
+│   │   │   │   ├── js
+│   │   │   │   ├── scss
+│   │   │   │   └── xml
+│   │   │   └── tests
+│   │   ├── tests
+│   │   ├── views
+│   │   └── wizard
+│   └── website_event
+│       ├── controllers
+│       ├── data
+│       ├── i18n
+│       ├── models
+│       ├── security
+│       ├── static
+│       │   ├── description
+│       │   └── src
+│       │       ├── img
+│       │       └── js
+│       ├── tests
+│       └── views
+├── custom
+│   └── onewave
+│       ├── onewave_custom_views
+│       ├── onewave_gestion_usuarios
+│       │   ├── models
+│       │   └── views
+│       ├── onewave_redirects
+│       │   ├── models
+│       │   └── views
+│       └── onewave_solicitud_eventos
+│           ├── models
+│           └── views
+```
+
