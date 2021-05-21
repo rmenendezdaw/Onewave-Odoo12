@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+
+<odoo>
+    <template id="registro-completado" name="Registration Completed">
+    <t t-call="website.layout">
+        <div class="container">
+            <h3>Nos alegra confirmarte que te has registrado en el evento</h3>
+            <div class="row">
+                <div class="col-lg-3 mt16">
+                    <h4>Detalles</h4>
+                </div>
+                <div class="col-lg-9 mt16">
+                    <h4><a t-attf-href="/event/#{slug(event)}"><t t-esc="event.name"/></a></h4>
+                    <i class="fa fa-clock-o" role="img" aria-label="Start date" title="Start date"></i> <span itemprop="startDate" t-esc="event.date_begin_located"> </span> <i>to</i> <span itemprop="endDate" t-esc="event.date_end_located"> </span>
+                    <div id="add_to_calendar" class="mt4">
+                        <a role="button" class="btn btn-primary mr8" t-att-href="iCal_url">
+                            <i class="fa fa-fw fa-arrow-right"/>Añadir a iCal/Outlook
+                        </a>
+                        <a role="button" class="btn btn-primary" t-att-href="google_url" target='_blank'>
+                            <i class="fa fa-fw fa-arrow-right"/>Añadir a Google Calendar
+                        </a>
+                    </div>
+                    
+                </div>
+                <div class="col-lg-3 mt16">
+                    <h4>Dirección</h4>
+                </div>
+                <div class="col-lg-9 mt16">
+                    <div itemprop="location" class="mt16 mb8" t-field="event.ubicacion">
+                        <i class="fa fa-map-marker fa-fw" role="img" aria-label="Dirección" title="Dirección"></i>
+                    </div>
+                </div>
+                <div class="col-lg-3 mt16">
+                    <h4>Tu registro</h4>
+                </div>
+                <div class="col-lg-9 mt16">
+                    <table class='table table-bordered table-striped'>
+                        <thead>
+                            <tr>
+                                <th>Referencia</th>
+                                <th>Nombre</th>
+                                <th>E-mail</th>
+                                <th>Télefono</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                    <td><t t-esc="attendee.id"/></td>
+                                    <td><i class="fa fa-user" role="img" aria-label="Name" title="Name"></i> <t t-if='attendee.name'><t t-esc="attendee.name"/></t><t t-if='not attendee.name'>N/A</t></td>
+                                    <td><i class="fa fa-envelope" role="img" aria-label="Email" title="Email"></i> <t t-if='attendee.email'><t t-esc="attendee.email"/></t><t t-if='not attendee.email'>N/A</t></td>
+                                    <td><i class="fa fa-phone" role="img" aria-label="Phone" title="Phone"></i> <t t-if='attendee.phone'><t t-esc="attendee.phone"/></t><t t-if='not attendee.phone'>N/A</t></td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </t>
+</template>
+</odoo>

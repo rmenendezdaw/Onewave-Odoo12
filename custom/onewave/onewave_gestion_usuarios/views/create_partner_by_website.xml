@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<odoo>
+    <template id="tmp_customer_form_success" name="Customer Form Successfully Submitted">
+        <!-- # TEST -->
+        <t t-call="website.layout">
+        <!-- # TEST -->
+            <div id="wrap">
+            <!-- # TEST -->
+                <div class="container">
+                <!-- # TEST -->
+                    <div class="col-md-12">
+                    <!-- # TEST -->
+                        <div class="alert alert-success">
+                            Alta realizada vamos a revisarlo
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

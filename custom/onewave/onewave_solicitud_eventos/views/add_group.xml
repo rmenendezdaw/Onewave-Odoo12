@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <odoo>
+        <record id="add_group" model="ir.ui.view">
+        <field name="name">event.add.view</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']"  position="after">
+                    <field name="ubicacion"/>
+                </xpath>
+                <xpath expr="//field[@name='company_id']"  position="after">
+                    <field name="grupos" style="width:900px" domain="[('tipo', '=', 'Grupo')]"/>
+                    <button name="send_mail_to_groups" attrs="{'invisible': [('grupos', '=', [])]}" type="object" string="Enviar solicitud por correo" class="send_button"/>
+                </xpath>
+            </field>
+        </record>
+    </odoo>
