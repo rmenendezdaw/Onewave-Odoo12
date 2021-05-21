@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap');
+
+$font-size-base: $o-theme-font-size-base;
+
+.custom-alta-card {
+    transition: 0.5s ease!important;
+    &:hover {
+        background-color: #34529b!important;
+    }
+}
+
+.custom-form {
+    background-color: #FFF;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px 3px #a6a6a6;
+}
+
+.custom-input__margintop {
+    margin-top: 15px;
+}
+
+.custom-event {
+    border-radius: 5px;
+    padding: 10px!important;
+    box-shadow: 1px 1px 5px 2px #a6a6a6;
+    width: 550px;
+}
+
+.custom-event:hover {
+    border-radius: 5px;
+    padding: 10px!important;
+    box-shadow: 1px 1px 5px 2px #a6a6a6;
+    text-decoration: none!important;
+}
+
+.custom-card__social {
+    display: flex;
+    flex-direction: row!important;
+    justify-content: space-around!important;
+    padding: 10px;
+}
+
+.custom-card_header {
+    color: #FFF;
+    background-color: #34529b!important;
+}
+
+.custom-card_body {
+    font-size: 14px;
+}

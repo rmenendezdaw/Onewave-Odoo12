@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+
+<t name="Events" t-name="website_event.index">
+    <t t-call="website.layout">
+      <div id="wrap">
+        <div class="oe_structure" id="oe_structure_website_event_index_1"/>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 offset-3">
+                    <t t-call="website.pager"/>
+                </div>
+            </div>
+            <div class="row mt32 mb32">
+                <div class="col-lg-9" id="middle_column">
+                    <div class="text-center text-muted" t-if="not event_ids">
+                        <h1>No event found</h1>
+                        <p groups="event.group_event_manager">Use the top menu <i>'Content'</i> to create your first event.</p>
+                    </div>
+                    <ul class="list-unstyled">
+                        <li t-foreach="event_ids" t-as="event" t-attf-class="media#{' mt-3' if event_index else ''}">
+                            <a itemprop="url" t-attf-href="/event/#{ slug(event) }/#{(not event.menu_id) and 'register' or ''}" class="media-body custom-event">
+                                <h4>
+                                        <span itemprop="name" t-field="event.name"> </span>
+                                    <small t-if="event.is_participating" class="badge badge-info">Participating</small>
+                                    <small t-if="event.is_online" class="badge badge-info">Online</small>
+                                    <small t-if="not event.website_published" class="badge badge-danger">unpublished</small>
+                                </h4>
+                                <div>
+                                    <t t-if="event.ubicacion">
+                                        Ubicado en: <span t-field="event.ubicacion"> </span>
+                                    </t>
+                                </div>
+                                <div>
+                                    <t t-if="event.organizer_id">
+                                        Organized by: <span t-field="event.user_id"> </span>
+                                    </t>
+                                </div>
+                                <div>
+                                    <i class="fa fa-clock-o" role="img" aria-label="Start date" title="Start date"/> <span itemprop="startDate" t-field="event.with_context(tz=event.date_tz).date_begin" t-options="{&quot;hide_seconds&quot;:&quot;True&quot;}"> </span> <i>to</i> <span itemprop="endDate" t-field="event.with_context(tz=event.date_tz).date_end" t-options="{&quot;hide_seconds&quot;:&quot;True&quot;}"> </span>
+                                </div>
+                                <t t-if="not event.is_online">
+                                    <div itemprop="location" t-field="event.address_id" t-options="{                                         &quot;widget&quot;: &quot;contact&quot;,                                         &quot;fields&quot;: [&quot;city&quot;]                                         }"/>
+                                </t>
+                                <div class="text-muted" t-if="event.event_type_id">
+                                    <i class="fa fa-tag" role="img" aria-label="Event type" title="Event type"/> <span t-field="event.event_type_id"/>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 oe_structure" id="right_column">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 offset-3">
+                    <t t-call="website.pager"/>
+                </div>
+            </div>
+        </div>
+        <div class="oe_structure" id="oe_structure_website_event_index_2"/>
+      </div>
+    </t>
+</t>
+
+<t t-name="website_event.event_description_full">
+    <t t-call="website_event.event_details">
+        <div class="col-lg-8">
+            <div t-if="event.state == 'done' or not registrable" class="alert alert-info" role="status">Registration for this event is now closed</div>
+            <t t-if="event.state != 'done' and registrable" t-call="website_event.registration_template"/>
+            <div class="clearfix"/>
+            <hr/>
+            <div itemprop="description" t-field="event.description"/>
+            <div class="clearfix"/>
+            <ul class="list-unstyled" id="comment">
+                <li t-foreach="event.website_message_ids" t-as="comment" class="media mt-3">
+                    <div class="media-body">
+                        <t t-call="website.publish_management">
+                            <t t-set="object" t-value="comment"/>
+                            <t t-set="publish_edit" t-value="True"/>
+                        </t>
+                        <t t-raw="comment.body"/>
+                        <small class="float-right muted text-right">
+                            <div t-field="comment.author_id"/>
+                            <div t-field="comment.date" t-options="{&quot;hide_seconds&quot;:&quot;True&quot;}"/>
+                        </small>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-lg-4 css_noprint">
+            <div class="clearfix"/>
+
+            <t t-if="not event.is_online">
+                <div class="card" t-if="event.ubicacion">
+                    <h4 class="card-header custom-card_header">Ubicación</h4>
+                    <div class="card-body">
+                        <div itemprop="location" class="mt16 mb8" t-field="event.ubicacion" />
+                    </div>
+                </div>
+            </t>
+            
+             <div class="card mt-3">
+                <h4 class="card-header custom-card_header">Grupos</h4>
+                <div class="card-body">
+                    <ul class="list-unstyled" id="comment">
+                        <li t-foreach="event.grupos" t-as="grupo" class="media mt-3">
+                            <div class = "custom-card_body" t-field = "grupo.name"></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card mt-3">
+                <h4 class="card-header custom-card_header">Fecha</h4>
+                <div class="card-body">
+                    <i class="fa fa-clock-o"/> Desde <span t-field="event.with_context(tz=event.date_tz).date_begin" t-options="{&quot;hide_seconds&quot;:&quot;True&quot;}"> </span><br/>
+                    <i class="fa fa-clock-o"/> Hasta <span t-field="event.with_context(tz=event.date_tz).date_end" t-options="{&quot;hide_seconds&quot;:&quot;True&quot;}"> </span>
+                </div>
+            </div>
+
+            <div class="card mt-3" t-if="event.organizer_id">
+                <h4 class="card-header custom-card_header">Organizer</h4>
+                <div class="card-body" t-field="event.user_id" t-options="{                     &quot;widget&quot;: &quot;contact&quot;,                     &quot;fields&quot;: [&quot;name&quot;, &quot;phone&quot;, &quot;mobile&quot;, &quot;email&quot;]                     }"/>
+            </div>
+
+            <div class="card mt-3">
+                <h4 class="card-header custom-card_header">Compatir evento</h4>
+                <div class="card-body">
+                    <div class="s_share">&amp;nbsp;<a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fonewave.es%2Fgrupos%23" class="s_share_facebook" target="_blank"><i class="fa fa-1x fa-facebook rounded shadow-sm"/></a><a href="https://twitter.com/intent/tweet?text=grupos%20%7C%20OneWave&amp;url=https%3A%2F%2Fonewave.es%2Fgrupos%23" class="s_share_twitter" target="_blank"><i class="fa fa-1x fa-twitter rounded shadow-sm"/></a><a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fonewave.es%2Fgrupos%23&amp;title=grupos%20%7C%20OneWave&amp;" class="s_share_linkedin" target="_blank"><i class="fa fa-1x fa-linkedin rounded shadow-sm"/></a><a href="https://plus.google.com/share?url=https%3A%2F%2Fonewave.es%2Fgrupos%23" class="s_share_google" target="_blank"><i class="fa fa-1x fa-google-plus rounded shadow-sm"/></a><a href="mailto:?body=https%3A%2F%2Fonewave.es%2Fgrupos%23&amp;subject=grupos%20%7C%20OneWave" class="s_share_email"><i class="fa fa-1x fa-envelope rounded shadow-sm"/></a></div>
+                </div>
+            </div>
+
+        </div>
+    </t>
+</t>
+
+<t name="Registration Completed" t-name="onewave_redirects.registro-completado">
+    <t t-call="website.layout">
+        <div class="container">
+            <h3>Nos alegra confirmarte que te has registrado en el evento</h3>
+            <div class="row">
+                <div class="col-lg-3 mt16">
+                    <h4>Detalles</h4>
+                </div>
+                <div class="col-lg-9 mt16">
+                    <h4><a t-attf-href="/event/#{slug(event)}"><t t-esc="event.name"/></a></h4>
+                    <i class="fa fa-clock-o" role="img" aria-label="Start date" title="Start date"/> <span itemprop="startDate" t-esc="event.date_begin_located"> </span> <i>to</i> <span itemprop="endDate" t-esc="event.date_end_located"> </span>
+                    <div id="add_to_calendar" class="mt4">
+                        <a role="button" class="btn btn-primary mr8" t-att-href="iCal_url">
+                            <i class="fa fa-fw fa-arrow-right"/>Añadir a iCal/Outlook
+                        </a>
+                        <a role="button" class="btn btn-primary" t-att-href="google_url" target="_blank">
+                            <i class="fa fa-fw fa-arrow-right"/>Añadir a Google Calendar
+                        </a>
+                    </div>
+                    
+                </div>
+                <div class="col-lg-3 mt16">
+                    <h4>Dirección</h4>
+                </div>
+                <div class="col-lg-9 mt16">
+                    <div itemprop="location" class="mt16 mb8" t-field="event.ubicacion">
+                        <i class="fa fa-map-marker fa-fw" role="img" aria-label="Dirección" title="Dirección"/>
+                    </div>
+                </div>
+                <div class="col-lg-3 mt16">
+                    <h4>Tu registro</h4>
+                </div>
+                <div class="col-lg-9 mt16">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Referencia</th>
+                                <th>Nombre</th>
+                                <th>E-mail</th>
+                                <th>Télefono</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                    <td><t t-esc="attendee.id"/></td>
+                                    <td><i class="fa fa-user" role="img" aria-label="Name" title="Name"/> <t t-if="attendee.name"><t t-esc="attendee.name"/></t><t t-if="not attendee.name">N/A</t></td>
+                                    <td><i class="fa fa-envelope" role="img" aria-label="Email" title="Email"/> <t t-if="attendee.email"><t t-esc="attendee.email"/></t><t t-if="not attendee.email">N/A</t></td>
+                                    <td><i class="fa fa-phone" role="img" aria-label="Phone" title="Phone"/> <t t-if="attendee.phone"><t t-esc="attendee.phone"/></t><t t-if="not attendee.phone">N/A</t></td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </t>
+</t>

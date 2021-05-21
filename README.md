@@ -1,5 +1,7 @@
 # One wave | Oscar Gandia & Raul Menendez
 
+![alt text](./logo_onewave.png)
+
 ## Acerca de One Wave
 One Wave es una aplicación web diseñada para ayudar a los grupos y organizadores a la hora de realizar un evento.
 Gracias a la automatización de muchas tareas la creación de eventos se puede realizar en minutos, dando de esta forma,
